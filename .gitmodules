@@ -1,0 +1,3 @@
+[submodule "tour"]
+	path = tour
+	url = /Users/DevApps/GoApps/go-programming-book/tour
