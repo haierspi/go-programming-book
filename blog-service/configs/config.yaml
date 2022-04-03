@@ -33,8 +33,8 @@ JWT:
 Database:
   DBType: mysql
   UserName: root
-  Password: rootroot
-  Host: 127.0.0.1:3306
+  Password: root
+  Host: docker:3306
   DBName: blog_service
   TablePrefix: blog_
   Charset: utf8

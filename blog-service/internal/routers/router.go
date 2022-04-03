@@ -28,9 +28,13 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
+
 	if global.ServerSetting.RunMode == "debug" {
-		r.Use(gin.Logger())
-		r.Use(gin.Recovery())
+		//r.Use(gin.Logger())
+		//r.Use(gin.Recovery())
+
+		r.Use(middleware.AccessLog())
+		r.Use(middleware.Recovery())
 	} else {
 		r.Use(middleware.AccessLog())
 		r.Use(middleware.Recovery())
@@ -50,7 +54,8 @@ func NewRouter() *gin.Engine {
 	r.POST("/auth", api.GetAuth)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 	apiv1 := r.Group("/api/v1")
-	apiv1.Use() //middleware.JWT()
+	apiv1.Use(middleware.JWT()) //middleware.JWT()
+	//apiv1.Use() //middleware.JWT()
 	{
 		// 创建标签
 		apiv1.POST("/tags", tag.Create)

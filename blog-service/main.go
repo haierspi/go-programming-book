@@ -4,6 +4,7 @@ import (
 	"context"
 	_ "expvar"
 	"flag"
+	"github.com/gookit/goutil/dump"
 	"log"
 	"net/http"
 	"os"
@@ -174,7 +175,8 @@ func setupValidator() error {
 }
 
 func setupTracer() error {
-	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-service", "127.0.0.1:6831")
+	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-service", "docker:6831")
+	dump.P(err)
 	if err != nil {
 		return err
 	}
