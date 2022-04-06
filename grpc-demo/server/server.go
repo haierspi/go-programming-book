@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	pb "github.com/go-programming-tour-book/grpc-demo/proto"
 	"google.golang.org/grpc"
+	pb "grpc-demo/helloworld"
 	"io"
 	"log"
 	"net"
@@ -19,8 +19,9 @@ func (s *GreeterServer) SayHello(ctx context.Context, r *pb.HelloRequest) (*pb.H
 		Message: "你好,这里是服务端...",
 	}, nil
 }
+dump
 
-func (s *GreeterServer) SayList(r *pb.HelloRequest, stream pb.Greeter_SayListServer) error {
+func (s *GreeterServer) SayList(r *pb.HelloRequest, stream pb.Greetery_SayListServer) error {
 	for i := 0; i < 6; i++ {
 		_ = stream.Send(&pb.HelloReply{Message: "[服务端流式RPC] 你好,stream"})
 	}
